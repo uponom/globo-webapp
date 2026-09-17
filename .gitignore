@@ -13,3 +13,5 @@
 
 # .pem files
 *.pem
+
+.DS_Store
