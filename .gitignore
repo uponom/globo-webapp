@@ -13,3 +13,6 @@
 
 # .pem files
 *.pem
+
+.DS_Store
+.terraform.lock.hcl
