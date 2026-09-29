@@ -8,10 +8,9 @@ sudo mkdir $playbookdir
 
 tmpdir=$(mktemp -d)
 git clone ${playbook_repo} $tmpdir
-cp -r "$tmpdir/ansible-playbook/*" $playbookdir 
-
-#sudo git clone ${playbook_repo} /var/ansible_playbooks
-ansible-playbook /var/ansible_playbooks/playbook.yml -i /var/ansible_playbooks/hosts
+sudo cp -r "$tmpdir/ansible-playbook/"* $playbookdir 
+rm -rf $tmpdir
+ansible-playbook "$playbookdir/playbook.yml" -i "$playbookdir/hosts"
 
 # # sudo amazon-linux-extras install -y nginx1
 # sudo dnf install -y nginx
