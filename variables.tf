@@ -47,5 +47,9 @@ variable "tfe_workspace_name" {
   description = "(Required) Name of TFC workspace to get information from"
 }
 
+variable "playbook_repo" {
+  type        = string
+  description = "(Required) URI of Ansible playbook"
+}
 
 
