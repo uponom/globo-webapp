@@ -102,7 +102,7 @@ resource "terraform_data" "webapp" {
     join(",", aws_instance.main.*.id)
   ]
 
-    provisioner "file" {
+  provisioner "file" {
     content = templatefile("./templates/application.config.tpl", {
       hosts     = aws_instance.main.*.private_dns
       site_name = "${local.name_prefix}-taco-wagon"
