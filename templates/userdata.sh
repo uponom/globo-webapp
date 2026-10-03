@@ -11,9 +11,9 @@ git clone ${playbook_repo} $tmpdir
 sudo cp -r "$tmpdir/ansible-playbook/"* $playbookdir 
 rm -rf $tmpdir
 
-aws secretsmanager get-secret-value --secret-id "${secret_id}" --region us-east-1 --query SecretString --output text > /var/ansible_playbooks/api_key.txt
-aws ssm get-parameter --name "${host_list_ssm_name}" --region us-east-1 --query Parameter.Value --output text > /var/ansible_playbooks/host_list.txt
-aws ssm get-parameter --name "${site_name_ssm_name}" --region us-east-1 --query Parameter.Value --output text > /var/ansible_playbooks/site_name.txt
+aws secretsmanager get-secret-value --secret-id "${secret_id}" --region ${region} --query SecretString --output text > /var/ansible_playbooks/api_key.txt 2>&1
+aws ssm get-parameter --name "${host_list}" --region ${region} --query Parameter.Value --output text > /var/ansible_playbooks/host_list.txt 2>&1
+aws ssm get-parameter --name "${site_name}" --region ${region} --query Parameter.Value --output text > /var/ansible_playbooks/site_name.txt 2>&1
 
 ansible-playbook "$playbookdir/playbook.yml" -i "$playbookdir/hosts"
 

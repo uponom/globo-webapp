@@ -1,10 +1,10 @@
 locals {
-  host_list_smm_name = "/${local.name_prefix}/host-list"
+  host_list_ssm_name = "/${local.name_prefix}/host-list"
   site_name_ssm_name = "/${local.name_prefix}/site-name"
 }
 
 resource "aws_ssm_parameter" "host_list" {
-  name  = local.host_list_smm_name
+  name  = local.host_list_ssm_name
   type  = "StringList"
   value = join(",", aws_instance.main[*].private_dns)
 }
