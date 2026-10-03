@@ -1,6 +1,6 @@
 locals {
-  host_list_smm_name = "${local.name_prefix}/host-list"
-  site_name_ssm_name = "${local.name_prefix}/site-name"
+  host_list_smm_name = "/${local.name_prefix}/host-list"
+  site_name_ssm_name = "/${local.name_prefix}/site-name"
 }
 
 resource "aws_ssm_parameter" "host_list" {
