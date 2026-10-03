@@ -51,11 +51,11 @@ resource "aws_instance" "main" {
 
   user_data_replace_on_change = true
   user_data = templatefile("./templates/userdata.sh", {
-    playbook_repo      = var.playbook_repo
-    secret_id          = var.api_key_secret_id
-    host_list = local.host_list_ssm_name
-    site_name = local.site_name_ssm_name
-    region = var.region
+    playbook_repo = var.playbook_repo
+    secret_id     = var.api_key_secret_id
+    host_list     = local.host_list_ssm_name
+    site_name     = local.site_name_ssm_name
+    region        = var.region
   })
 }
 
