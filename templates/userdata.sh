@@ -10,6 +10,11 @@ tmpdir=$(mktemp -d)
 git clone ${playbook_repo} $tmpdir
 sudo cp -r "$tmpdir/ansible-playbook/"* $playbookdir 
 rm -rf $tmpdir
+
+aws secretsmanager get-secret-value --secret-id "${secret_id}" --region us-east-1 --query SecretString --output text > /var/ansible_playbooks/api_key.txt
+aws ssm get-parameter --name "${host_list_ssm_name}" --region us-east-1 --query Parameter.Value --output text > /var/ansible_playbooks/host_list.txt
+aws ssm get-parameter --name "${site_name_ssm_name}" --region us-east-1 --query Parameter.Value --output text > /var/ansible_playbooks/site_name.txt
+
 ansible-playbook "$playbookdir/playbook.yml" -i "$playbookdir/hosts"
 
 # # sudo amazon-linux-extras install -y nginx1
