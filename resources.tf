@@ -53,34 +53,11 @@ resource "aws_instance" "main" {
   user_data = templatefile("./templates/userdata.sh", {
     playbook_repo      = var.playbook_repo
     secret_id          = var.api_key_secret_id
-    host_list_ssm_name = local.host_list_smm_name
-    site_name_ssm_name = local.site_name_ssm_name
+    host_list = local.host_list_ssm_name
+    site_name = local.site_name_ssm_name
+    region = var.region
   })
 }
-
-# resource "terraform_data" "webapp" {
-#   triggers_replace = [
-#     length(aws_instance.main.*.id),
-#     join(",", aws_instance.main.*.id)
-#   ]
-
-#   provisioner "file" {
-#     content = templatefile("./templates/application.config.tpl", {
-#       hosts     = aws_instance.main.*.private_dns
-#       site_name = "${local.name_prefix}-taco-wagon"
-#       api_key   = var.api_key
-#     })
-#     destination = "/home/ec2-user/application.config"
-#   }
-
-#   connection {
-#     type        = "ssh"
-#     user        = "ec2-user"
-#     port        = "22"
-#     host        = aws_instance.main[0].public_ip
-#     private_key = module.ssh_keys.private_key_openssh
-#   }
-# }
 
 resource "aws_lb" "main" {
   name               = "${local.name_prefix}-webapp"
